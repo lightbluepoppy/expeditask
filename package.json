@@ -19,6 +19,7 @@
     "fmt": "prettier --write .",
     "fmt.check": "prettier --check .",
     "lint": "eslint \"src/**/*.ts*\"",
+    "preinstall": "npx only-allow pnpm",
     "preview": "qwik build preview && vite preview --open",
     "start": "vite --open --mode ssr",
     "qwik": "qwik"
@@ -31,6 +32,7 @@
     "@typescript-eslint/eslint-plugin": "^6.7.5",
     "@typescript-eslint/parser": "^6.7.5",
     "autoprefixer": "^10.4.14",
+    "drizzle-kit": "^0.20.6",
     "eslint": "^8.51.0",
     "eslint-plugin-qwik": "^1.2.19",
     "postcss": "^8.4.31",
@@ -43,6 +45,9 @@
     "vite-tsconfig-paths": "^4.2.1"
   },
   "dependencies": {
-    "@libsql/client": "^0.3.1"
+    "@libsql/client": "^0.3.6",
+    "@neondatabase/serverless": "^0.6.0",
+    "@paralleldrive/cuid2": "^2.2.2",
+    "drizzle-orm": "^0.29.1"
   }
 }
