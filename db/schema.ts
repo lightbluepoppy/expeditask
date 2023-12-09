@@ -32,7 +32,7 @@ export const task = pgTable("task", {
     taskID: varchar("task_id")
         .$defaultFn(() => createId())
         .primaryKey(),
-    taskAuthorID: varchar("task_author_id"),
+    userID: varchar("task_author_id").references(() => user.userID),
     title: varchar("title").notNull(),
     createdAt: timestamp("created_at").defaultNow(),
     updatedAt: timestamp("updated_at").defaultNow(),
@@ -49,7 +49,7 @@ export const taskInstance = pgTable("task_instance", {
         .primaryKey(),
     // join table is less flexible
     // taskID: varchar("task_id").references(() => task.taskID),
-    taskID: varchar("task_id"),
+    taskID: varchar("task_id").references(() => task.taskID),
     title: varchar("title").notNull(),
     createdAt: timestamp("created_at").defaultNow(),
     updatedAt: timestamp("updated_at").defaultNow(),
@@ -58,7 +58,7 @@ export const taskInstance = pgTable("task_instance", {
 })
 
 export const taskInstanceTimeEntry = pgTable("task_instance_time_entry", {
-    taskInstanceID: varchar("target_task_instance_id"),
+    taskInstanceID: varchar("target_task_instance_id").references(() => task.taskID),
     scheduledStartTime: timestamp("scheduled_start_time"),
     scheduledEndTime: timestamp("scheduled_end_time"),
     actualStartTime: timestamp("actual_start_time"),
@@ -66,7 +66,9 @@ export const taskInstanceTimeEntry = pgTable("task_instance_time_entry", {
 })
 
 export const taskInstanceStatistics = pgTable("task_statistics", {
-    taskInstanceID: varchar("target_task_instance_id"),
+    taskInstanceID: varchar("target_task_instance_id").references(
+        () => taskInstance.taskInstanceID,
+    ),
     goalTitle: varchar("goal_title"),
     goalValue: integer("goal_value"),
     goalValueUnit: varchar("goal_value_unit"),
@@ -75,58 +77,106 @@ export const taskInstanceStatistics = pgTable("task_statistics", {
 })
 
 export const taskDependency = pgTable("task_dependency", {
-    taskID: varchar("task_id"),
-    dependencyTaskID: varchar("dependency_task_id"),
+    taskID: varchar("task_id").references(() => task.taskID),
+    dependencyTaskID: varchar("dependency_task_id").references(() => task.taskID),
 })
 
 export const taskInstanceDependency = pgTable("task_instance_dependency", {
-    taskInstanceID: varchar("task_instance_id"),
-    dependencyTaskInstanceID: varchar("dependency_task_instance_id"),
+    taskInstanceID: varchar("task_instance_id").references(
+        () => taskInstance.taskInstanceID,
+    ),
+    dependencyTaskInstanceID: varchar("dependency_task_instance_id").references(
+        () => taskInstance.taskInstanceID,
+    ),
 })
 
 export const taskTree = pgTable("task_tree", {
-    taskID: varchar("task_instance_id"),
-    descendantTaskInstanceID: varchar("descendant_task_instance_id"),
+    ancestorTaskID: varchar("ancestor_task_id").references(() => task.taskID),
+    descendantTaskInstanceID: varchar("descendant_task_id").references(() => task.taskID),
 })
 
 export const taskInstanceTree = pgTable("task_instance_tree", {
-    taskInstanceID: varchar("task_id"),
-    descendantTaskID: varchar("descendant_task_id"),
+    ancestorTaskInstanceID: varchar("ancestor_task_instance_id").references(
+        () => taskInstance.taskInstanceID,
+    ),
+    descendantTaskID: varchar("descendant_task_instance_id").references(
+        () => taskInstance.taskInstanceID,
+    ),
 })
 
-export const userRelation = relations(user, ({ many }) => ({
-    task: many(task),
-}))
-
-export const taskRelation = relations(task, ({ one, many }) => ({
-    taskAuthor: one(user, {
-        fields: [task.taskAuthorID],
-        references: [user.userID],
-    }),
-    taskInstance: many(taskInstance),
-}))
-
-export const taskInstanceRelation = relations(taskInstance, ({ one }) => ({
-    parentTask: one(task, {
-        fields: [taskInstance.taskID],
-        references: [task.taskID],
-    }),
-}))
-
-export const taskInstanceStatisticsRelation = relations(
-    taskInstanceStatistics,
-    ({ one }) => ({
-        taskInstance: one(taskInstance),
-    }),
-)
-
-export const taskInstanceTimeEntryRelation = relations(
-    taskInstanceTimeEntry,
-    ({ one }) => ({
-        taskInstance: one(taskInstance),
-    }),
-)
-
-export const taskDependencyRelation = relations(taskDependency, ({ one }) => {
-    task: one(task),
+export const tag = pgTable("tag", {
+    tagID: varchar("tag_id")
+        .$defaultFn(() => createId())
+        .primaryKey(),
+    userID: varchar("user_id").references(() => user.userID),
+    title: varchar("title"),
+    color: char("color", { length: 6 }),
+    imageURL: varchar("image_url"),
 })
+
+export const tagTree = pgTable("tag_tree", {
+    ancestorTagID: varchar("ancestor_tag_id").references(() => tag.tagID),
+    descendantTagID: varchar("descendant_tag_id").references(() => tag.tagID),
+})
+
+// export const userRelation = relations(user, ({ many }) => ({
+//     task: many(task),
+//     tag: many(tag),
+// }))
+
+// export const taskRelation = relations(task, ({ one, many }) => ({
+//     // taskAuthor: one(user, {
+//     //     fields: [task.taskAuthorID],
+//     //     references: [user.userID],
+//     // }),
+//     // taskInstance: many(taskInstance),
+//     taskDependency: one(taskDependency, {
+//         fields: [task.taskID],
+//         references: [taskDependency.taskID],
+//     }),
+//     taskTree: one(taskTree, {
+//         fields: [task.taskID],
+//         references: [taskTree.ancestorTaskID],
+//     }),
+// }))
+
+// export const taskInstanceRelation = relations(taskInstance, ({ one }) => ({
+//     parentTask: one(task, {
+//         fields: [taskInstance.taskID],
+//         references: [task.taskID],
+//     }),
+//     taskInstanceDependency: one(taskInstanceDependency, {
+//         fields: [taskInstance.taskInstanceID],
+//         references: [taskInstanceDependency.taskInstanceID],
+//     }),
+//     taskInstanceTree: one(taskInstanceTree, {
+//         fields: [taskInstance.taskInstanceID],
+//         references: [taskInstanceTree.ancestorTaskInstanceID],
+//     }),
+// }))
+
+// export const taskInstanceStatisticsRelation = relations(
+//     taskInstanceStatistics,
+//     ({ one }) => ({
+//         taskInstance: one(taskInstance),
+//     }),
+// )
+
+// export const taskInstanceTimeEntryRelation = relations(
+//     taskInstanceTimeEntry,
+//     ({ one }) => ({
+//         taskInstance: one(taskInstance),
+//     }),
+// )
+
+// export const taskDependencyRelation = relations(taskDependency, ({ many }) => ({
+//     task: many(task),
+// }))
+
+// export const tagRelation = relations(tag, ({ one }) => ({
+//     user: one(user),
+//     tagTree: one(tagTree, {
+//         fields: [tag.tagID],
+//         references: [tagTree.ancestorTagID],
+//     }),
+// }))
