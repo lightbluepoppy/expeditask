@@ -17,10 +17,9 @@
         "outDir": "tmp",
         "noEmit": true,
         "types": ["node", "vite/client"],
-        // "paths": {
-        //     "~/*": ["./src/*"],
-        //     "@/*": ["/*"]
-        // }
+        "paths": {
+            "~/*": ["./src/*"]
+        },
         "baseUrl": "."
     },
     "files": ["./.eslintrc.cjs"],
