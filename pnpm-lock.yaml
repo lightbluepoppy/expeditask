@@ -14,37 +14,46 @@ dependencies:
   '@paralleldrive/cuid2':
     specifier: ^2.2.2
     version: 2.2.2
+  dotenv:
+    specifier: ^16.3.1
+    version: 16.3.1
   drizzle-orm:
     specifier: ^0.29.1
-    version: 0.29.1(@libsql/client@0.3.6)(@neondatabase/serverless@0.6.0)
+    version: 0.29.1(@libsql/client@0.3.6)(@neondatabase/serverless@0.6.0)(pg@8.11.3)(postgres@3.4.3)
+  pg:
+    specifier: ^8.11.3
+    version: 8.11.3
+  postgres:
+    specifier: ^3.4.3
+    version: 3.4.3
 
 devDependencies:
   '@builder.io/qwik':
     specifier: ^1.2.19
     version: 1.2.19(@types/node@20.10.0)(undici@5.28.1)
   '@builder.io/qwik-city':
-    specifier: ^1.2.13
+    specifier: ^1.2.19
     version: 1.2.19(@types/node@20.10.0)
   '@types/eslint':
-    specifier: ^8.44.4
+    specifier: ^8.44.7
     version: 8.44.7
   '@types/node':
-    specifier: ^20.8.4
+    specifier: ^20.10.0
     version: 20.10.0
   '@typescript-eslint/eslint-plugin':
-    specifier: ^6.7.5
+    specifier: ^6.13.0
     version: 6.13.0(@typescript-eslint/parser@6.13.0)(eslint@8.54.0)(typescript@5.3.2)
   '@typescript-eslint/parser':
-    specifier: ^6.7.5
+    specifier: ^6.13.0
     version: 6.13.0(eslint@8.54.0)(typescript@5.3.2)
   autoprefixer:
-    specifier: ^10.4.14
+    specifier: ^10.4.16
     version: 10.4.16(postcss@8.4.31)
   drizzle-kit:
     specifier: ^0.20.6
     version: 0.20.6
   eslint:
-    specifier: ^8.51.0
+    specifier: ^8.54.0
     version: 8.54.0
   eslint-plugin-qwik:
     specifier: ^1.2.19
@@ -53,22 +62,22 @@ devDependencies:
     specifier: ^8.4.31
     version: 8.4.31
   prettier:
-    specifier: ^3.0.3
+    specifier: ^3.1.0
     version: 3.1.0
   prettier-plugin-tailwindcss:
-    specifier: ^0.5.4
+    specifier: ^0.5.7
     version: 0.5.7(prettier@3.1.0)
   tailwindcss:
     specifier: 3.3.3
     version: 3.3.3
   typescript:
-    specifier: ^5.2.2
+    specifier: ^5.3.2
     version: 5.3.2
   undici:
-    specifier: ^5.26.0
+    specifier: ^5.28.1
     version: 5.28.1
   vite:
-    specifier: ^4.4.11
+    specifier: ^4.5.0
     version: 4.5.0(@types/node@20.10.0)
   vite-tsconfig-paths:
     specifier: ^4.2.1
@@ -1537,6 +1546,11 @@ packages:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
     dev: true
 
+  /buffer-writer@2.0.0:
+    resolution: {integrity: sha512-a7ZpuTZU1TRtnwyCNW3I5dc0wWNC3VR9S++Ewyk2HHZdrO3CQJqSpd+95Us590V6AL7JqUAH2IwZ/398PmNFgw==}
+    engines: {node: '>=4'}
+    dev: false
+
   /buffer@5.7.1:
     resolution: {integrity: sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==}
     dependencies:
@@ -1910,6 +1924,11 @@ packages:
       domhandler: 5.0.3
     dev: true
 
+  /dotenv@16.3.1:
+    resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
+    engines: {node: '>=12'}
+    dev: false
+
   /dreamopt@0.8.0:
     resolution: {integrity: sha512-vyJTp8+mC+G+5dfgsY+r3ckxlz+QMX40VjPQsZc5gxVAxLmi64TBoVkP54A/pRAXMXsbu2GMMBrZPxNv23waMg==}
     engines: {node: '>=0.4.0'}
@@ -1941,7 +1960,7 @@ packages:
       - utf-8-validate
     dev: true
 
-  /drizzle-orm@0.29.1(@libsql/client@0.3.6)(@neondatabase/serverless@0.6.0):
+  /drizzle-orm@0.29.1(@libsql/client@0.3.6)(@neondatabase/serverless@0.6.0)(pg@8.11.3)(postgres@3.4.3):
     resolution: {integrity: sha512-yItc4unfHnk8XkDD3/bdC63vdboTY7e7I03lCF1OJYABXSIfQYU9BFTQJXMMovVeb3T1/OJWwfW/70T1XPnuUA==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
@@ -2005,6 +2024,8 @@ packages:
     dependencies:
       '@libsql/client': 0.3.6
       '@neondatabase/serverless': 0.6.0
+      pg: 8.11.3
+      postgres: 3.4.3
     dev: false
 
   /electron-to-chromium@1.4.594:
@@ -3788,6 +3809,10 @@ packages:
       p-limit: 3.1.0
     dev: true
 
+  /packet-reader@1.0.0:
+    resolution: {integrity: sha512-HAKu/fG3HpHFO0AA8WE8q2g+gBJaZ9MG7fcKk+IJPLTGAD6Psw4443l+9DGRbOIh3/aXr7Phy0TjilYivJo5XQ==}
+    dev: false
+
   /parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
     engines: {node: '>=6'}
@@ -3844,9 +3869,27 @@ packages:
       is-reference: 3.0.2
     dev: true
 
+  /pg-cloudflare@1.1.1:
+    resolution: {integrity: sha512-xWPagP/4B6BgFO+EKz3JONXv3YDgvkbVrGw2mTo3D6tVDQRh1e7cqVGvyR3BE+eQgAvx1XhW/iEASj4/jCWl3Q==}
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /pg-connection-string@2.6.2:
+    resolution: {integrity: sha512-ch6OwaeaPYcova4kKZ15sbJ2hKb/VP48ZD2gE7i1J+L4MspCtBMAx8nMgz7bksc7IojCIIWuEhHibSMFH8m8oA==}
+    dev: false
+
   /pg-int8@1.0.1:
     resolution: {integrity: sha512-WCtabS6t3c8SkpDBUlb1kjOs7l66xsGdKpIPZsg4wR+B3+u9UAum2odSsF9tnvxg80h4ZxLWMy4pRjOsFIqQpw==}
     engines: {node: '>=4.0.0'}
+    dev: false
+
+  /pg-pool@3.6.1(pg@8.11.3):
+    resolution: {integrity: sha512-jizsIzhkIitxCGfPRzJn1ZdcosIt3pz9Sh3V01fm1vZnbnCMgmGl5wvGGdNN2EL9Rmb0EcFoCkixH4Pu+sP9Og==}
+    peerDependencies:
+      pg: '>=8.0'
+    dependencies:
+      pg: 8.11.3
     dev: false
 
   /pg-protocol@1.6.0:
@@ -3862,6 +3905,32 @@ packages:
       postgres-bytea: 1.0.0
       postgres-date: 1.0.7
       postgres-interval: 1.2.0
+    dev: false
+
+  /pg@8.11.3:
+    resolution: {integrity: sha512-+9iuvG8QfaaUrrph+kpF24cXkH1YOOUeArRNYIxq1viYHZagBxrTno7cecY1Fa44tJeZvaoG+Djpkc3JwehN5g==}
+    engines: {node: '>= 8.0.0'}
+    peerDependencies:
+      pg-native: '>=3.0.1'
+    peerDependenciesMeta:
+      pg-native:
+        optional: true
+    dependencies:
+      buffer-writer: 2.0.0
+      packet-reader: 1.0.0
+      pg-connection-string: 2.6.2
+      pg-pool: 3.6.1(pg@8.11.3)
+      pg-protocol: 1.6.0
+      pg-types: 2.2.0
+      pgpass: 1.0.5
+    optionalDependencies:
+      pg-cloudflare: 1.1.1
+    dev: false
+
+  /pgpass@1.0.5:
+    resolution: {integrity: sha512-FdW9r/jQZhSeohs1Z3sI1yxFQNFvMcnmfuj4WBMUTxOrAyLMaTcE1aAMBiTlbMNaXvBCQuVi0R7hd8udDSP7ug==}
+    dependencies:
+      split2: 4.2.0
     dev: false
 
   /picocolors@1.0.0:
@@ -3973,6 +4042,11 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       xtend: 4.0.2
+    dev: false
+
+  /postgres@3.4.3:
+    resolution: {integrity: sha512-iHJn4+M9vbTdHSdDzNkC0crHq+1CUdFhx+YqCE+SqWxPjm+Zu63jq7yZborOBF64c8pc58O5uMudyL1FQcHacA==}
+    engines: {node: '>=12'}
     dev: false
 
   /prebuild-install@7.1.1:
@@ -4383,6 +4457,11 @@ packages:
   /space-separated-tokens@2.0.2:
     resolution: {integrity: sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==}
     dev: true
+
+  /split2@4.2.0:
+    resolution: {integrity: sha512-UcjcJOWknrNkF6PLX83qcHM6KHgVKNkV62Y8a5uYDVv9ydGQVwAHMKqHdJje1VTWpljG0WYpCDhrCdAOYH4TWg==}
+    engines: {node: '>= 10.x'}
+    dev: false
 
   /stacktracey@2.1.8:
     resolution: {integrity: sha512-Kpij9riA+UNg7TnphqjH7/CzctQ/owJGNbFkfEeve4Z4uxT5+JapVLFXcsurIfN34gnTWZNJ/f7NMG0E8JDzTw==}
