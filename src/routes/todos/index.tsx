@@ -1,9 +1,9 @@
 import { RequestHandler } from "@builder.io/qwik-city/middleware/request-handler"
 import * as server from "src/db/server"
-import { task } from "src/db/schema/schema"
+import { tasks } from "src/db/schema/schema"
 
 export const onRequest: RequestHandler = async ({ json }) => {
-    const result = await server.db.insert(task).values({ title: "task2" }).returning()
+    const result = await server.db.insert(tasks).values({ title: "task2" }).returning()
     json(200, { body: result })
 }
 

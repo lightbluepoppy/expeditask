@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik"
 import { db } from "src/db/server"
-import { task } from "src/db/schema/schema"
+import { tasks } from "src/db/schema/schema"
 import {
     type DocumentHead,
     routeLoader$,
@@ -30,7 +30,7 @@ export const useAddToTaskListAction = routeAction$(
     async (item) => {
         try {
             clientTaskList.push(item)
-            const data = await db.insert(task).values({ title: item.text }).returning()
+            const data = await db.insert(tasks).values({ title: item.text }).returning()
             return { code: 200, message: "success", data: data }
         } catch (error) {
             console.error(error)
