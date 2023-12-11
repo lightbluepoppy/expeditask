@@ -1,9 +1,9 @@
 // migrate.ts
 import { migrate } from "drizzle-orm/neon-http/migrator"
-import * as server from "db/server"
+import { db } from "src/db/server"
 const main = async () => {
     try {
-        await migrate(server.db, { migrationsFolder: "./db/migrations" })
+        await migrate(db, { migrationsFolder: "./db/migrations" })
         console.log("Migration complete")
     } catch (error) {
         console.log(error)

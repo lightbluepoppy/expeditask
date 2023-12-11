@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik"
-import { db } from "db/server"
-import { task } from "db/schema/schema"
+import { db } from "src/db/server"
+import { task } from "src/db/schema/schema"
 import {
     type DocumentHead,
     routeLoader$,
