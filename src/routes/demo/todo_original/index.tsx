@@ -1,5 +1,4 @@
 import { component$ } from "@builder.io/qwik"
-import { server$ } from "@builder.io/qwik-city"
 import { db } from "db/server"
 import { task } from "db/schema/schema"
 import {
@@ -29,22 +28,19 @@ export const useServerTaskListLoader = routeLoader$(() => {
 
 export const useAddToTaskListAction = routeAction$(
     async (item) => {
-        clientTaskList.push(item)
-        const result = await db.insert(task).values({ title: item.text }).returning()
-        console.log(result)
-        // return {
-        //     success: true,
-        // }
+        try {
+            clientTaskList.push(item)
+            const data = await db.insert(task).values({ title: item.text }).returning()
+            return { code: 200, message: "success", data: data }
+        } catch (error) {
+            console.error(error)
+            return { code: 400, message: error, data: null }
+        }
     },
     zod$({
         text: z.string().trim().min(1),
     }),
 )
-
-// export const useAddToServerTaskListAction = server$((item) => {
-//     const result = db.insert(task).values({ title: item.title }).returning()
-//     console.log(result)
-// })
 
 export default component$(() => {
     const taskList = useClientTaskListLoader()
