@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1702174018928,
+      "tag": "0000_ordinary_ares",
+      "breakpoints": true
+    }
+  ]
+}
