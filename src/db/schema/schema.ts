@@ -14,8 +14,7 @@ export const users = pgTable("users", {
         .$defaultFn(() => createId())
         .primaryKey(),
     username: varchar("username", { length: 255 }).notNull(),
-    createdAt: timestamp("created_at").defaultNow(),
-    // account_id: varchar("id")
+    createdAt: timestamp("created_at").defaultNow(), // account_id: varchar("id")
     //     .$defaultFn(() => createId())
     //     .primaryKey(),
 })
