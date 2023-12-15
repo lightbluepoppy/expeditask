@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik"
 import { db } from "src/db/server"
-import { task } from "src/db/schema/schema"
+import { tasks } from "src/db/schema/schema"
 import {
     type DocumentHead,
     routeLoader$,
@@ -22,7 +22,7 @@ export const useClientTaskListLoader = routeLoader$(() => {
 })
 
 export const useServerTaskListLoader = routeLoader$(() => {
-    const serverTaskList = db.query.task.findMany()
+    const serverTaskList = db.query.tasks.findMany()
     return serverTaskList
 })
 
@@ -30,10 +30,10 @@ export const useAddToTaskListAction = routeAction$(
     async (item) => {
         try {
             clientTaskList.push(item)
-            const data = await db.insert(task).values({ title: item.text }).returning()
+            const data = await db.insert(tasks).values({ title: item.text }).returning()
             return { code: 200, message: "success", data: data }
         } catch (error) {
-            console.error(error)
+            // console.error(error)
             return { code: 400, message: error, data: null }
         }
     },
@@ -60,9 +60,12 @@ export default component$(() => {
                 {taskList.value.length === 0 ? (
                     <span class={styles.empty}>No items found</span>
                 ) : (
-                    <ul class={styles.list}>
+                    <ul class="flex min-h-screen flex-row items-center justify-center">
                         {taskList.value.map((item, index) => (
-                            <li key={`items-${index}`}>{item.text}</li>
+                            <>
+                                <li key={`items-${index}`}>{item.text}</li>
+                                <button>Delete</button>
+                            </>
                         ))}
                     </ul>
                 )}
